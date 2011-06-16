@@ -1,0 +1,9 @@
+.buildpath
+.project
+.settings
+* ~
+*swp
+_*~*
+.DS_Store
+.DS_Store*
+._.TemporaryItems*

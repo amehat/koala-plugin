@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configdata>
+	<nav>
+			<home>
+				<label>rubriques.accueil</label>
+				<controller>index</controller>
+				<action>index</action>
+				<route>i18n</route>
+				<pages>
+					<page>
+						<label>tree</label>
+						<controller>tree</controller>
+						<action>index</action>
+						<route>i18n</route>
+					</page>
+			</pages>
+		</home>
+	</nav>
+</configdata>

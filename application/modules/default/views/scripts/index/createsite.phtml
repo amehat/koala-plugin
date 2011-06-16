@@ -1,9 +1,32 @@
+<?php if ( true == $this->displayform ){ ?>
 <article>
-	<form action="" method="post">
-		<p>Nom du site <input type="text" name="namesite" value="" /></p>
-		<p>Chemin <input type="text" name="pathsite" value="<?php echo ROOT_PATH . DIRECTORY_SEPARATOR; ?>" /></p>
-		<p>Url <input type="text" name="urlsite" value="" /></p>
+	<form action="<?php echo $this->baseurl() . '/index/createsite'?>" method="post">
+		<p>Nom du site <input type="text" name="namesite" value="" /> (&egrave;viter les espaces, accents ou caract&egrave;re sp&eacute;ciaux)</p>
+		<p>Chemin <input type="text" name="pathsite" value="<?php echo ROOT_PATH . DIRECTORY_SEPARATOR; ?>" /> (ex : C:/Wamp/www ou /var/www/htdodcs | Attention pas de / à la fin)</p>
+		<p>Url <input type="text" name="urlsite" value="" /> (ex : koalaplugin.dev ou http://koalaplugin.dev )</p>
 		<input type="hidden" name="createsite" value="1" />
+		<fieldset>Options :
+		<p>ip du serveur <input type="text" name="ip" value="<?php echo $_SERVER['SERVER_ADDR']; ?>" /> (ex : * ou 127.0.0.1)</p>
+		<p>port du serveur <input type="text" name="port" value="<?php echo $_SERVER['SERVER_PORT']; ?>" /> (ex : 80 )</p>
+		<p>Alias <input type type="text" name="alias" value="" /> (ex : www.koalaplugin.dev)</p>
+		<p>Mail de l'administrateur du serveur <input type="text" name="serveradmin" value="<?php echo $_SERVER['SERVER_ADMIN']; ?>" /> ( ex : john.doe@example.com )</p>
+		<p><textarea name="directives"></textarea> (r&egrave;serv&egrave; aux experts qui souhaite ajouter des param&egrave;tres au virtualhost)</p>
+		</fieldset>
 		<p><input type="submit" name="submit-site" value="Cr&eacute;er le site" /></p>
 </form>
+	<?php if ( $this->displayerror ){ ?>
+	<p><?php echo $this->aSiteResult['message']; ?></p>
+	<?php }?>
 </article>
+<?php } else { ?>
+<article>
+	<p><?php echo $this->aSiteResult['message']; ?></p>
+	<h2>Url</h2>
+	<p><?php echo Zend_Controller_Front::getInstance()->getRequest()->getParam('urlsite'); ?></p>
+	<p>Ajouter à votre virtualhost et votre host les donn&eacute;es fournies ci-dessous</p>
+	<h2>Virtual Host</h2>
+	<p><?php echo nl2br(htmlspecialchars($this->aSiteResult['virtualhost'])); ?></p>
+	<h2>Host</h2>
+	<p><?php echo $this->aSiteResult['host']; ?></p>
+</article>
+<?php } ?>
